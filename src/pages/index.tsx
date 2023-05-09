@@ -7,6 +7,7 @@ export default function Home() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [result, setResult] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const handleButtonClick = useCallback(async () => {
     setButtonProgress(true);
@@ -15,10 +16,12 @@ export default function Home() {
     try {
       await axios.post("/api/something", {
         title,
-        description
+        description,
+        imageUrl
       });
       setTitle("");
       setDescription("");
+      setImageUrl("");
       setResult("SUCCESS! CHECK PUSH NOTIFICATION!")
     } catch (e) {
       console.error(e);
@@ -57,6 +60,8 @@ export default function Home() {
       <h2>Invoke notification</h2>
 
       <input placeholder="Title" value={title} onChange={(e) => { setTitle(e.target.value) }}></input>
+
+      <input placeholder="Image url" value={imageUrl} onChange={(e) => { setImageUrl(e.target.value) }} type="url"></input>
 
       <textarea placeholder="Description" value={description} onChange={(e) => { setDescription(e.target.value) }}></textarea>
 
